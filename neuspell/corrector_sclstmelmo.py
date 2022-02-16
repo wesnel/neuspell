@@ -6,7 +6,7 @@ from .seq_modeling.helpers import load_data
 from .seq_modeling.util import is_module_available
 
 if is_module_available("allennlp"):
-    from .seq_modeling.sclstmelmo import load_model, load_pretrained, model_predictions, model_inference
+    from .seq_modeling.sclstmelmo import load_model, load_pretrained_large, model_predictions, model_inference
 
 """ corrector module """
 
@@ -25,7 +25,7 @@ class SclstmelmoChecker(Corrector):
     def load_model(self, ckpt_path):
         print(f"initializing model")
         initialized_model = load_model(self.vocab)
-        self.model = load_pretrained(initialized_model, self.ckpt_path, device=self.device)
+        self.model = load_pretrained_large(initialized_model, self.ckpt_path, device=self.device)
 
     def correct_strings(self, mystrings: List[str], return_all=False) -> List[str]:
         self.is_model_ready()

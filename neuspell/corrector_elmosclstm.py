@@ -12,7 +12,7 @@ from .seq_modeling.helpers import train_validation_split, batch_iter, labelize, 
 from .util import is_module_available, get_module_or_attr
 
 if is_module_available("allennlp"):
-    from .seq_modeling.elmosclstm import load_model, load_pretrained, model_predictions, model_inference
+    from .seq_modeling.elmosclstm import load_model, load_pretrained_large, model_predictions, model_inference
 
 """ corrector module """
 
@@ -31,7 +31,7 @@ class ElmosclstmChecker(Corrector):
     def load_model(self, ckpt_path):
         print(f"initializing model")
         initialized_model = load_model(self.vocab)
-        self.model = load_pretrained(initialized_model, self.ckpt_path, device=self.device)
+        self.model = load_pretrained_large(initialized_model, self.ckpt_path, device=self.device)
 
     def correct_strings(self, mystrings: List[str], return_all=False) -> List[str]:
         self.is_model_ready()
@@ -114,7 +114,7 @@ class ElmosclstmChecker(Corrector):
         if START_EPOCH > 1:
             progress_write_file = open(os.path.join(CHECKPOINT_PATH, f"progress_retrain_from_epoch{START_EPOCH}.txt"),
                                        'w')
-            model, optimizer, max_dev_acc, argmax_dev_acc = load_pretrained(model, CHECKPOINT_PATH, optimizer=optimizer)
+            model, optimizer, max_dev_acc, argmax_dev_acc = load_pretrained_large(model, CHECKPOINT_PATH, optimizer=optimizer)
             progress_write_file.write(f"Training model params after loading from path: {CHECKPOINT_PATH}\n")
         else:
             progress_write_file = open(os.path.join(CHECKPOINT_PATH, "progress.txt"), 'w')
