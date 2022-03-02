@@ -1,14 +1,14 @@
 [tool.poetry]
 name = "neuspell"
-version = "1.0.5"
+version = "1.0.6"
 description = ""
 authors = ["Your Name <you@example.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.8"
 allennlp = "^2.9.0"
 pytorch-pretrained-bert = "^0.6.2"
-en-core-web-sm = {path = "data/en_core_web_sm-3.2.0"}
+en-core-web-sm = {path = "./data/en_core_web_sm-3.2.0"}
 
 [tool.poetry.dev-dependencies]
 
