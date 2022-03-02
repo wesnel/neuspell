@@ -5,7 +5,7 @@ from typing import List
 import torch
 
 from .commons import DEFAULT_DATA_PATH
-from .seq_modeling.downloads import download_pretrained_model
+from .seq_modeling.downloads import download_pretrained_model_large
 from .seq_modeling.helpers import load_vocab_dict, get_model_nparams
 from .util import is_module_available
 
@@ -129,7 +129,7 @@ class Corrector(ABC):
 
         self.vocab_path = vocab_path or os.path.join(self.ckpt_path, "vocab.pkl")
         if not os.path.isfile(self.vocab_path):  # leads to "FileNotFoundError"
-            download_pretrained_model(self.ckpt_path)
+            download_pretrained_model_large(self.ckpt_path)
 
         self.load_output_vocab(self.vocab_path)
         self.load_model(self.ckpt_path)
